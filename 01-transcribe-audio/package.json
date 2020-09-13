@@ -1,0 +1,8 @@
+{
+  "name": "01-transcribe-audio",
+  "version": "1.0.0",
+  "description": "Transcribe audio module",
+  "main": "audio-translator-send-audio-to-transcribe.js",
+  "repository": "",
+  "author": "Oriol Porta Regue"
+}

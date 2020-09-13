@@ -10,7 +10,7 @@ Resources:
     Type: 'AWS::S3::Bucket'
 
   AWSTranscribeRole: 
-    Type: "AWS::IAM::Role",
+    Type: "AWS::IAM::Role"
     Properties:
       AssumeRolePolicyDocument:
         Version: 2012-10-17
@@ -22,22 +22,16 @@ Resources:
             Action:
               - 'sts:AssumeRole'
       Policies:
-        - PolicyDocument: {
-              "Version": "2012-10-17",
-              "Statement": [
-                  {
-                      "Effect": "Allow",
-                      "Action": "s3:GetObject",
-                      "Resource": "arn:aws:s3:::*/*"
-                  },
-                  {
-                      "Effect": "Allow",
-                      "Action": "s3:PutObject",
-                      "Resource": "arn:aws:s3:::*/*"
-                  }
-              ]
-          },
-          PolicyName: Allow access to S3 buckets
+        - PolicyDocument: 
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action: s3:GetObject
+                Resource: arn:aws:s3:::*/*
+              - Effect: Allow
+                Action: s3:PutObject
+                Resource: arn:aws:s3:::*/*
+          PolicyName: AllowGetAndPutToS3Buckets
 
   SendAudioToTranscribe:
     Type: AWS::Serverless::Function
@@ -53,7 +47,7 @@ Resources:
       Environment:
         Variables:
           OUTPUT_BUCKET_NAME: !Ref TranscriptionsBucket
-          TRANSCRIBE_DATA_ACCESS_ROLE: !Ref AWSTranscribeRole
+          TRANSCRIBE_DATA_ACCESS_ROLE: !GetAtt AWSTranscribeRole.Arn
       Policies:
         - Statement:
           - Effect: Allow
