@@ -1,0 +1,66 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Lambda used to transcribe audios when uploaded to an S3 bucket.
+
+Resources:
+  UploadBucket:
+    Type: 'AWS::S3::Bucket'
+
+  TranscriptionsBucket:
+    Type: 'AWS::S3::Bucket'
+
+  AWSTranscribeRole: 
+    Type: "AWS::IAM::Role",
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - transcribe.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Policies:
+        - PolicyDocument: {
+              "Version": "2012-10-17",
+              "Statement": [
+                  {
+                      "Effect": "Allow",
+                      "Action": "s3:GetObject",
+                      "Resource": "arn:aws:s3:::*/*"
+                  },
+                  {
+                      "Effect": "Allow",
+                      "Action": "s3:PutObject",
+                      "Resource": "arn:aws:s3:::*/*"
+                  }
+              ]
+          },
+          PolicyName: Allow access to S3 buckets
+
+  SendAudioToTranscribe:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: audio-translator-send-audio-to-transcribe.handler
+      Runtime: nodejs12.x
+      Events:
+        AudioUpdated:
+          Type: S3
+          Properties:
+            Bucket: !Ref UploadBucket
+            Events: s3:ObjectCreated:*
+      Environment:
+        Variables:
+          OUTPUT_BUCKET_NAME: !Ref TranscriptionsBucket
+          TRANSCRIBE_DATA_ACCESS_ROLE: !Ref AWSTranscribeRole
+      Policies:
+        - Statement:
+          - Effect: Allow
+            Resource: '*'
+            Action:
+              - transcribe:*
+          - Effect: Allow
+            Resource: '*'
+            Action:
+              - iam:PassRole
