@@ -26,10 +26,11 @@ Resources:
         - Statement:
           - Effect: Allow
             Resource: 
-              - !Join
-                - ''
-                - - !GetAtt TranscriptionsDBTable.Arn
-                  - '/index/*'
-              - !GetAtt TranscriptionsDBTable.Arn
+              - !Sub
+                - 'arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${TableName}/index/*'
+                - TableName: !Ref TranscriptionsDBTable
+              - !Sub
+                - 'arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${TableName}'
+                - TableName: !Ref TranscriptionsDBTable
             Action:
               - dynamodb:Scan
