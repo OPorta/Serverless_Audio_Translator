@@ -6,6 +6,7 @@ aws s3 mb s3://$s3_deploy_bucket
 
 ##Get resources from other CloudFormations' stacks
 TRANSCRIPTIONS_DB_TABLE=$(aws cloudformation describe-stack-resource --stack-name audio-translator-store-transcription-from-sns --logical-resource-id TranscriptionsDBTable --query "StackResourceDetail.PhysicalResourceId" --output text)
+echo "TRANSCRIPTIONS_DB_TABLE: ${TRANSCRIPTIONS_DB_TABLE}"
 
 ##Deploy with SAM
 sam build

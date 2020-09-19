@@ -5,9 +5,13 @@ Description: Lambdas used to send transcriptions to SNS when uploaded to an S3 b
 Resources:
   UploadBucket:
     Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: !Sub "audio-translator-uploadbucket-${AWS::AccountId}"
 
   TranscriptionsBucket:
     Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: !Sub "audio-translator-transcriptionsbucket-${AWS::AccountId}"
 
   AWSTranscribeRole: 
     Type: "AWS::IAM::Role"
@@ -27,23 +31,17 @@ Resources:
             Statement:
               - Effect: Allow
                 Action: s3:GetObject
-                Resource: 'arn:aws:s3:::*/*'
-#                Resource: !Join
-#                  - ''
-#                  - - !GetAtt UploadBucket.Arn
-#                    - '/*'
+                Resource: !Sub 'arn:aws:s3:::audio-translator-uploadBucket-${AWS::AccountId}/*'
               - Effect: Allow
                 Action: s3:PutObject
-                Resource: !Join
-                  - ''
-                  - - !GetAtt TranscriptionsBucket.Arn
-                    - '/*'
+                Resource: !Sub 'arn:aws:s3:::audio-translator-transcriptionsbucket-${AWS::AccountId}/*'
           PolicyName: AllowGetAndPutToS3Buckets
 
   SendAudioToTranscribe:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: send-audio-to-transcribe/audio-translator-send-audio-to-transcribe.handler
+      Handler: audio-translator-send-audio-to-transcribe.handler
+      CodeUri: send-audio-to-transcribe/
       Runtime: nodejs12.x
       Events:
         AudioUpdated:
@@ -72,7 +70,8 @@ Resources:
   SendTranscriptionToSNS:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: send-transcription-to-sns/audio-translator-send-transcription-to-sns.handler
+      Handler: audio-translator-send-transcription-to-sns.handler
+      CodeUri: send-transcription-to-sns/
       Runtime: nodejs12.x
       Events:
         TranscriptionUpdated:
@@ -86,7 +85,7 @@ Resources:
       Policies:
         - Statement:
           - Effect: Allow
-            Resource: !GetAtt TranscriptionsBucket.Arn
+            Resource: !Sub 'arn:aws:s3:::audio-translator-transcriptionsbucket-${AWS::AccountId}/*'
             Action:
               - s3:GetObject
           - Effect: Allow

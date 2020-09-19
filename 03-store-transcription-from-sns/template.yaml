@@ -13,7 +13,6 @@ Resources:
       PrimaryKey: 
         Name: MessageTitle
         Type: String
-      TableName: TRANSCRIPTIONS_LIST
 
   StoreTranscriptionFromSNS:
     Type: AWS::Serverless::Function
