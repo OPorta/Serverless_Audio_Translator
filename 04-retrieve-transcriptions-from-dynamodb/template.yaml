@@ -10,7 +10,7 @@ Resources:
   RetrieveTranscriptionsFromSNS:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: audio-translator-store-transcription-from-sns.handler
+      Handler: audio-translator-retrieve-transcriptions-from-dynamodb.handler
       Runtime: nodejs12.x
       Events:
         HttpRequest:

@@ -31,10 +31,12 @@ Resources:
             Statement:
               - Effect: Allow
                 Action: s3:GetObject
-                Resource: !Sub 'arn:aws:s3:::audio-translator-uploadBucket-${AWS::AccountId}/*'
+#                Resource: !Sub 'arn:aws:s3:::audio-translator-uploadBucket-${AWS::AccountId}/*'
+                Resource: 'arn:aws:s3:::*/*'
               - Effect: Allow
                 Action: s3:PutObject
-                Resource: !Sub 'arn:aws:s3:::audio-translator-transcriptionsbucket-${AWS::AccountId}/*'
+#                Resource: !Sub 'arn:aws:s3:::audio-translator-transcriptionsbucket-${AWS::AccountId}/*'
+                Resource: 'arn:aws:s3:::*/*'
           PolicyName: AllowGetAndPutToS3Buckets
 
   SendAudioToTranscribe:
