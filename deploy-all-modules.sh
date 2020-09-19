@@ -1,5 +1,13 @@
-sh ./01-transcribe-audio/deploy.sh
-sh ./02-send-transcription-to-sns/deploy.sh
-sh ./03-translate-transcription-from-sns/deploy.sh
-sh ./04-store-transcription-from-sns/deploy.sh
-sh ./05-retrieve-transcriptions-from-dynamodb/deploy.sh
+cd 01-transcribe-audio-and-send-transcription-to-sns
+    sh deploy.sh
+cd ..
+cd 02-translate-transcription-from-sns
+    sh deploy.sh
+cd ..
+cd 03-store-transcription-from-sns
+    sh deploy.sh
+cd ..
+cd 04-retrieve-transcriptions-from-dynamodb
+    sh deploy.sh
+cd ..
+echo "ALL RESOURCES DEPLOYED"

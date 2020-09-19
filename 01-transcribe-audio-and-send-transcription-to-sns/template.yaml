@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: Lambda used to transcribe audios when uploaded to an S3 bucket.
+Description: Lambdas used to send transcriptions to SNS when uploaded to an S3 bucket and to send this transcriptions to SNS.
 
 Resources:
   UploadBucket:
@@ -27,10 +27,11 @@ Resources:
             Statement:
               - Effect: Allow
                 Action: s3:GetObject
-                Resource: !Join
-                  - ''
-                  - - !GetAtt UploadBucket.Arn
-                    - '/*'
+                Resource: 'arn:aws:s3:::*/*'
+#                Resource: !Join
+#                  - ''
+#                  - - !GetAtt UploadBucket.Arn
+#                    - '/*'
               - Effect: Allow
                 Action: s3:PutObject
                 Resource: !Join
@@ -42,7 +43,7 @@ Resources:
   SendAudioToTranscribe:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: audio-translator-send-audio-to-transcribe.handler
+      Handler: send-audio-to-transcribe/audio-translator-send-audio-to-transcribe.handler
       Runtime: nodejs12.x
       Events:
         AudioUpdated:
@@ -64,3 +65,31 @@ Resources:
             Resource: '*'
             Action:
               - iam:PassRole
+  
+  TranscriptionsSNS:
+    Type: 'AWS::SNS::Topic'
+
+  SendTranscriptionToSNS:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: send-transcription-to-sns/audio-translator-send-transcription-to-sns.handler
+      Runtime: nodejs12.x
+      Events:
+        TranscriptionUpdated:
+          Type: S3
+          Properties:
+            Bucket: !Ref TranscriptionsBucket
+            Events: s3:ObjectCreated:*
+      Environment:
+        Variables:
+          OUTPUT_SNS_TOPIC: !Ref TranscriptionsSNS
+      Policies:
+        - Statement:
+          - Effect: Allow
+            Resource: !GetAtt TranscriptionsBucket.Arn
+            Action:
+              - s3:GetObject
+          - Effect: Allow
+            Resource: !Ref TranscriptionsSNS
+            Action:
+              - sns:Publish

@@ -5,7 +5,7 @@ echo $s3_deploy_bucket
 aws s3 mb s3://$s3_deploy_bucket
 
 ##Get resources from other CloudFormations' stacks
-TRANSCRIPTIONS_SNS_TOPIC=$(aws cloudformation describe-stack-resource --stack-name audio-translator-send-transcription-to-sns --logical-resource-id TranscriptionsSNS --query "StackResourceDetail.PhysicalResourceId" --output text)
+TRANSCRIPTIONS_SNS_TOPIC=$(aws cloudformation describe-stack-resource --stack-name audio-translator-transcribe-audio-and-send-transcription-to-sns --logical-resource-id TranscriptionsSNS --query "StackResourceDetail.PhysicalResourceId" --output text)
 
 ##Deploy with SAM
 sam build
