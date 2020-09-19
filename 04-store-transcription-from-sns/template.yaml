@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Lambda used to store transcriptions from SNS to a DynamoDB's table.
+Parameters:
+  TranscriptionsSNS:
+    Type: String
+    Description: Transcriptions SNS
+
+Resources:
+  TranscriptionsDBTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey: 
+        Name: MessageTitle
+        Type: String
+      TableName: TRANSCRIPTIONS_LIST
+
+  StoreTranscriptionFromSNS:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: audio-translator-store-transcription-from-sns.handler
+      Runtime: nodejs12.x
+      Events:
+        TranscriptionReceived:
+          Type: SNS
+          Properties:
+            Topic: !Ref TranscriptionsSNS
+      Environment:
+        Variables:
+          DB_TABLE_NAME: !Ref TranscriptionsDBTable
+      Policies:
+        - Statement:
+          - Effect: Allow
+            Resource: !GetAtt TranscriptionsDBTable.Arn
+            Action:
+              - dynamodb:PutItem

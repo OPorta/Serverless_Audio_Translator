@@ -1,0 +1,38 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Lambda used to translate transcriptions from SNS and store it to an S3 Bucket.
+Parameters:
+  TranscriptionsSNS:
+    Type: String
+    Description: Transcriptions SNS
+
+Resources:
+  TranslationsBucket:
+    Type: 'AWS::S3::Bucket'
+
+  TranslateTranscriptionFromSNS:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: audio-translator-translate-transcription-from-sns.handler
+      Runtime: nodejs12.x
+      Events:
+        TranscriptionReceived:
+          Type: SNS
+          Properties:
+            Topic: !Ref TranscriptionsSNS
+      Environment:
+        Variables:
+          OUTPUT_BUCKET_NAME: !Ref TranslationsBucket
+      Policies:
+        - Statement:
+          - Effect: Allow
+            Resource: '*'
+            Action:
+              - translate:TranslateText
+          - Effect: Allow
+            Resource: !Join
+              - ''
+              - - !GetAtt TranslationsBucket.Arn
+                - '/*'
+            Action:
+              - s3:PutObject

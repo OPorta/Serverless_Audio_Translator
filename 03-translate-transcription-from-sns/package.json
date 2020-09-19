@@ -1,0 +1,8 @@
+{
+  "name": "03-translate-transcription-from-sns",
+  "version": "1.0.0",
+  "description": "Translate transcriptions from SNS module",
+  "main": "audio-translator-translate-transcription-from-sns.js",
+  "repository": "",
+  "author": "Oriol Porta Regue"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "04-store-transcription-from-sns",
+  "version": "1.0.0",
+  "description": "Store transcriptions from SNS module",
+  "main": "audio-translator-store-transcription-from-sns.js",
+  "repository": "",
+  "author": "Oriol Porta Regue"
+}

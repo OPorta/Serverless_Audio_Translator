@@ -27,10 +27,16 @@ Resources:
             Statement:
               - Effect: Allow
                 Action: s3:GetObject
-                Resource: arn:aws:s3:::*/*
+                Resource: !Join
+                  - ''
+                  - - !GetAtt UploadBucket.Arn
+                    - '/*'
               - Effect: Allow
                 Action: s3:PutObject
-                Resource: arn:aws:s3:::*/*
+                Resource: !Join
+                  - ''
+                  - - !GetAtt TranscriptionsBucket.Arn
+                    - '/*'
           PolicyName: AllowGetAndPutToS3Buckets
 
   SendAudioToTranscribe:

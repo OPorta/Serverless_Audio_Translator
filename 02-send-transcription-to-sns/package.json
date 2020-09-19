@@ -1,0 +1,8 @@
+{
+  "name": "02-send-transcription-to-sns",
+  "version": "1.0.0",
+  "description": "Send transcription to SNS module",
+  "main": "audio-translator-send-transcription-to-sns.js",
+  "repository": "",
+  "author": "Oriol Porta Regue"
+}

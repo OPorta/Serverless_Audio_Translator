@@ -1,0 +1,8 @@
+{
+  "name": "05-retrieve-transcriptions-from-dynamodb",
+  "version": "1.0.0",
+  "description": "Retrieve transcriptions from DynamoDB Table",
+  "main": "audio-translator-retrieve-transcriptions-from-dynamodb.js",
+  "repository": "",
+  "author": "Oriol Porta Regue"
+}

@@ -1,0 +1,35 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Lambda used to retrieve transcriptions from a DynamoDB's table using an HTTP request.
+Parameters:
+  TranscriptionsDBTable:
+    Type: String
+    Description: Transcriptions DynamoDB Table
+
+Resources:
+  RetrieveTranscriptionsFromSNS:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: audio-translator-store-transcription-from-sns.handler
+      Runtime: nodejs12.x
+      Events:
+        HttpRequest:
+          Type: HttpApi
+          Properties:
+            Path: /
+            Method: GET
+      Environment:
+        Variables:
+          DB_TABLE_NAME: !Ref TranscriptionsDBTable
+          FIELDS_TO_RETRIEVE: 'MessageText'
+      Policies:
+        - Statement:
+          - Effect: Allow
+            Resource: 
+              - !Join
+                - ''
+                - - !GetAtt TranscriptionsDBTable.Arn
+                  - '/index/*'
+              - !GetAtt TranscriptionsDBTable.Arn
+            Action:
+              - dynamodb:Scan
