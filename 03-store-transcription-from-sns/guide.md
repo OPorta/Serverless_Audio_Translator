@@ -2,7 +2,7 @@
 
 En este apartado crearemos la base de datos de tipo *DynamoDB* dónde guardaremos las transcripciones y la *lambda* encargada de guardar las transcripciones recibidas a través del *topic* de *SNS*.
 
-![Transcribe audio diagram](C:/Users/oriol/Documents/GitHub/Serverless_Audio_Translator/documentation-images/Serverless_Audio_Translator_part4.png)
+![Transcribe audio diagram](../documentation-images/Serverless_Audio_Translator_part4.png)
 
 > En construcción...
 
