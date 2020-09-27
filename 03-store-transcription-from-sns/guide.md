@@ -8,7 +8,7 @@ En este apartado crearemos la base de datos de tipo *DynamoDB* dónde guardaremo
 
 ---
 
-Capítulo anterior: [Traducción de transcripciones consumidas de SNS](./02-translate-transcription-from-sns/guide.md)
+Capítulo anterior: [Traducción de transcripciones consumidas de SNS](../02-translate-transcription-from-sns/guide.md)
 
-Capítulo siguiente: [Consulta de las transcripciones](./04-retrieve-transcriptions-from-dynamodb/guide.md)
+Capítulo siguiente: [Consulta de las transcripciones](../04-retrieve-transcriptions-from-dynamodb/guide.md)
 

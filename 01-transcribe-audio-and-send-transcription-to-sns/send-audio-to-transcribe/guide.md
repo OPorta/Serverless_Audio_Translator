@@ -151,7 +151,7 @@ Podéis validar que la lambda se está ejecutando cada vez que subáis un audio 
 
 ---
 
-Capítulo siguiente: [Publicación de las transcripciones a SNS](./01-transcribe-audio-and-send-transcription-to-sns/send-transcription-to-sns/guide.md)
+Capítulo siguiente: [Publicación de las transcripciones a SNS](../send-transcription-to-sns/guide.md)
 
 
 

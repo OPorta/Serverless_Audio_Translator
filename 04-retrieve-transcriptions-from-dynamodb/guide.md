@@ -8,5 +8,5 @@ En este apartado crearemos la *lambda* encargada de consultar las transcripcione
 
 ---
 
-Capítulo anterior: [Guardado de las transcripciones consumidas de SNS](./01-transcribe-audio-and-send-transcription-to-sns/send-transcription-to-sns/guide.md)
+Capítulo anterior: [Guardado de las transcripciones consumidas de SNS](../03-store-transcription-from-sns/guide.md)
 
