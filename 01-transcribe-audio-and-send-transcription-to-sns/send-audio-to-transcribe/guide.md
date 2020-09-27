@@ -40,7 +40,7 @@ En el siguiente paso nos va a pedir asociar una política de permisos. Cómo no 
 
 Al crear una nueva política nos abrirá una nueva pestaña del navegador. Las políticas pueden crearse tanto con un editor visual cómo definiendolas en formato JSON. En nuestro caso, vamos a definirla en formato JSON con la siguiente configuración:
 
-```
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -74,7 +74,7 @@ Una vez creado el rol, vamos a editarlo para permitir que se ejecute desde AWS T
 
 Al editarla cambiaremos el servicio asociado a *AWS Transcribe*.
 
-```
+```json
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -124,18 +124,12 @@ Una vez en el editor del rol vemos la política que se crea por defecto en las l
 
 En la nueva política que estamos creando añadiremos los siguientes permisos en el editor JSON y le daremos un nombre:
 
-```
+```json
 {
     "Statement": [
         {
             "Action": [
-                "transcribe:*"
-            ],
-            "Resource": "*",
-            "Effect": "Allow"
-        },
-        {
-            "Action": [
+                "transcribe:*",
                 "iam:PassRole"
             ],
             "Resource": "*",
@@ -146,6 +140,8 @@ En la nueva política que estamos creando añadiremos los siguientes permisos en
 ```
 
 Ahora ya deberíamos poder ejecutar nuestra lambda sin problemas. Para hacer la prueba, subiremos un nuevo audio a nuestro repositorio origen y veremos que aparece la transcripción en el repositorio destino.
+
+## Monitorización
 
 Podéis validar que la lambda se está ejecutando cada vez que subáis un audio en el repositorio S3 revisando la pestaña de monitorización. Incluso podéis ver los logs de la ejecución pulsando en "Ver los registros de CloudWatch". Tened en cuenta que si la lambda no se ha llegado a ejecutar nunca, no se va a encontrar ningún log.
 

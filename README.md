@@ -47,8 +47,8 @@ El manual se ha dividido en 5 apartados, cada uno asociado una lambda distinta.
 
 1. [Transcripción de audio](./01-transcribe-audio-and-send-transcription-to-sns/send-audio-to-transcribe/guide.md)
 2. [Publicación de las transcripciones a SNS](./01-transcribe-audio-and-send-transcription-to-sns/send-transcription-to-sns/guide.md)
-3. [Traducción de transcripciones consumidos de SNS](./02-translate-transcription-from-sns/guide.md)
-4. [Guardado de las transcripciones consumidos de SNS](./03-store-transcription-from-sns/guide.md)
+3. [Traducción de transcripciones consumidas de SNS](./02-translate-transcription-from-sns/guide.md)
+4. [Guardado de las transcripciones consumidas de SNS](./03-store-transcription-from-sns/guide.md)
 5. [Consulta de las transcripciones](./04-retrieve-transcriptions-from-dynamodb/guide.md)
 
 ## Despliegue automático
