@@ -51,6 +51,11 @@ Resources:
           Properties:
             Bucket: !Ref UploadBucket
             Events: s3:ObjectCreated:*
+            Filter:
+              S3Key:
+                Rules:
+                - Name: suffix
+                  Value: wav
       Environment:
         Variables:
           OUTPUT_BUCKET_NAME: !Ref TranscriptionsBucket
@@ -81,6 +86,11 @@ Resources:
           Properties:
             Bucket: !Ref TranscriptionsBucket
             Events: s3:ObjectCreated:*
+            Filter:
+              S3Key:
+                Rules:
+                - Name: suffix
+                  Value: json
       Environment:
         Variables:
           OUTPUT_SNS_TOPIC: !Ref TranscriptionsSNS
