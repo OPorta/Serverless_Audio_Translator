@@ -95,6 +95,7 @@ Resources:
             Action:
               - sns:Publish
 
+# Permissions added due to show lambda's S3 triggers (Ref: https://github.com/aws/serverless-application-model/issues/300#issuecomment-510847259)
   SendAudioToTranscribeLambdaInvokePermission:
     Type: 'AWS::Lambda::Permission'
     Properties:
