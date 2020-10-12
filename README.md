@@ -50,6 +50,7 @@ El manual se ha dividido en 5 apartados, cada uno asociado una lambda distinta.
 3. [Traducción de transcripciones consumidas de SNS](./02-translate-transcription-from-sns/guide.md)
 4. [Guardado de las transcripciones consumidas de SNS](./03-store-transcription-from-sns/guide.md)
 5. [Consulta de las transcripciones](./04-retrieve-transcriptions-from-dynamodb/guide.md)
+6. [Limpieza de los recursos creados](./clean-up.md)
 
 ## Despliegue automático
 

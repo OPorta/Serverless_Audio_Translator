@@ -73,3 +73,15 @@ Ahora ya podemos hacer el deploy automático de toda nuestra aplicación ejecuta
 ```
 ./deploy-all-modules.sh
 ```
+
+---
+
+## Eliminación de los recursos
+
+Una vez hechas nuestras pruebas, podemos eliminar nuestros recursos accediendo al servicio *CloudFormation* > *Stacks* y eliminaremos todos los stacks que empiezan con nombre *"audio-translator-"*.
+
+![Delete CloudFormation stacks](./documentation-images/delete_stacks.png)
+
+Y para finalizar, eliminaremos nuestro entorno de *Cloud9*:
+
+![Delete Cloud9 environment](./documentation-images/delete_cloud9.png)

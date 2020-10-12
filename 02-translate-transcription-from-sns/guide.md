@@ -59,11 +59,38 @@ Ahora ya deberíamos poder ejecutar nuestra lambda sin problemas. Para hacer la 
 
 ## Configuración y ejecución de eventos de prueba
 
-> Pendiente de construcción...
+Para configurar un evento de prueba iremos al desplegable al lado del botón *Probar* y pulsaremos en *Configurar eventos de prueba*.
+![Test lambda](../documentation-images/test_event.png)
+
+Una vez allí crearemos un evento de prueba con el siguiente JSON:
+
+```json
+{
+  "Records": [
+    {
+      "Sns": {
+        "Subject": "lambda-test",
+        "Message": "I want to eat chocolate."
+      }
+    }
+  ]
+}
+```
+![Test lambda](../documentation-images/test_event_2.png)
+
+y lo ejecutaremos.
+
+![Test lambda](../documentation-images/test_event_3.png)
+
+Si todo ha ido correctamente veremos el siguiente mensaje:
+
+![Test lambda](../documentation-images/test_event_4.png)
+
+También podréis observar que se ha creado un nuevo fichero en vuestro repositorio S3 con el nombre *lambda-test-ES.txt* y contenido *"Quiero comer chocolate."*
 
 ## Monitorización
 
-Podéis validar que la lambda se está ejecutando cada vez que subáis un audio en el repositorio S3 revisando la pestaña de monitorización. Incluso podéis ver los logs de la ejecución pulsando en "Ver los registros de CloudWatch". Tened en cuenta que si la lambda no se ha llegado a ejecutar nunca, no se va a encontrar ningún log.
+Podéis validar que la lambda se está ejecutando cada vez que subáis un audio en el repositorio S3 inicial revisando la pestaña de monitorización. Incluso podéis ver los logs de la ejecución pulsando en "Ver los registros de CloudWatch". Tened en cuenta que si la lambda no se ha llegado a ejecutar nunca, no se va a encontrar ningún log.
 
 ![Create lambda - part 5](../documentation-images/lambda_monitorization.png)
 
