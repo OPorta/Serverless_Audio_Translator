@@ -2,6 +2,8 @@
 
 *This repository is going to be translated to english in future commits.*
 
+*Feel free to add any improvement advice.*
+
 El objetivo de este repositorio es montar una pequeña aplicación serverless que nos sirva cómo primera aproximación para observar distintos casos de uso de las Arquitecturas Serverless. En este ejemplo vamos a usar AWS cómo proveedor cloud y SAM cómo framework de automatización de despliegues.
 
 *Todos los servicios de AWS que usaremos para hacer esta aplicación entran dentro de la **capa gratuita** del primer año de Amazon Web Services.*
