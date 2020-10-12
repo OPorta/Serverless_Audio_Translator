@@ -94,3 +94,21 @@ Resources:
             Resource: !Ref TranscriptionsSNS
             Action:
               - sns:Publish
+
+  SendAudioToTranscribeLambdaInvokePermission:
+    Type: 'AWS::Lambda::Permission'
+    Properties:
+      FunctionName: !GetAtt SendAudioToTranscribe.Arn
+      Action: 'lambda:InvokeFunction'
+      Principal: 's3.amazonaws.com'
+      SourceAccount: !Sub ${AWS::AccountId}
+      SourceArn: !GetAtt UploadBucket.Arn
+  
+  SendTranscriptionToSNSLambdaInvokePermission:
+    Type: 'AWS::Lambda::Permission'
+    Properties:
+      FunctionName: !GetAtt SendTranscriptionToSNS.Arn
+      Action: 'lambda:InvokeFunction'
+      Principal: 's3.amazonaws.com'
+      SourceAccount: !Sub ${AWS::AccountId}
+      SourceArn: !GetAtt TranscriptionsBucket.Arn
